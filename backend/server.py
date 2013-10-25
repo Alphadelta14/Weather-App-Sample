@@ -21,7 +21,7 @@ class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write("Forbidden")
         else:
-            SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
+            super(CustomHandler, self).do_GET()
 
 httpd = SocketServer.ThreadingTCPServer(('localhost', PORT),CustomHandler)
 
