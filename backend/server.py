@@ -15,6 +15,11 @@ class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(index())
             return
+        elif "backend" in self.path:
+            self.send_response(403)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            self.wfile.write("Forbidden")
         else:
             SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
