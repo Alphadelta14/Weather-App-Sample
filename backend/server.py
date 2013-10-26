@@ -1,23 +1,30 @@
 import SocketServer
 import SimpleHTTPServer
 import random
+import json
 
 PORT = 12080
 
 weather_types = ["sunny", "cloudy", "rainy"]
 temperatures = range(40, 85, 5)
 
-def data():
-    """ serve up data """
-    return 'test'
+def day_data():
+    """ serve up single day data """
+    hourly = {}
+    for hour in range(8, 21, 4):
+        hourly[hour] = {
+            "weather": random.choice(weather_types),
+            "temperature": random.choice(temperatures)
+        }
+    return json.dumps(hourly)
 
 class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def do_GET(self):
-        if self.path=='/data':
+        if self.path=='/day':
             self.send_response(200)
-            self.send_header('Content-type','text/html')
+            self.send_header('Content-type','application/json')
             self.end_headers()
-            self.wfile.write(data())
+            self.wfile.write(day_data())
             return
         elif "backend" in self.path:
             self.send_response(403)
