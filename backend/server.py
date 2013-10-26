@@ -1,7 +1,11 @@
 import SocketServer
 import SimpleHTTPServer
+import random
 
 PORT = 12080
+
+weather_types = ["sunny", "cloudy", "rainy"]
+temperatures = range(40, 85, 5)
 
 def data():
     """ serve up data """
