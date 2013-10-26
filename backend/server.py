@@ -3,8 +3,8 @@ import SimpleHTTPServer
 
 PORT = 12080
 
-def index():
-    """ serve up index data """
+def data():
+    """ serve up data """
     return 'test'
 
 class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
@@ -13,7 +13,7 @@ class CustomHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type','text/html')
             self.end_headers()
-            self.wfile.write(index())
+            self.wfile.write(data())
             return
         elif "backend" in self.path:
             self.send_response(403)
